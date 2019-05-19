@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const cTable = require('console.table')
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -18,16 +19,17 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  queryInventory();
+  //queryInventory();
 });
 
 function queryInventory() {
   connection.query("SELECT * FROM products", function(err, res) {
-    console.log("item_id product_name    price");
+    //console.log("item_id product_name    price");
     //console.log("------- --------------------------------- ------");
-    for (var i = 0; i < res.length; i++) {
-      console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].price + " | " + res[i].stock_quantity);
-    }
+    //for (var i = 0; i < res.length; i++) {
+    //  console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].price + " | " + res[i].stock_q);
+    //}
+    console.table(res)
     console.log("-----------------------------------");
     runSearch()
   });
@@ -84,3 +86,9 @@ function runSearch() {
       });
     })
 }
+function welcomeBamazon() {
+  console.log("*****WELCOME TO BAMAZON MANAGER PORTAL*****");
+  queryInventory();;
+}
+//Start application with displaying menu options.
+welcomeBamazon();
